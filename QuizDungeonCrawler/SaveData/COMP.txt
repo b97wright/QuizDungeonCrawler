@@ -1,0 +1,4 @@
+COMP is cool.
+COMP is fun.
+COMP is easy.
+END OF FILE!

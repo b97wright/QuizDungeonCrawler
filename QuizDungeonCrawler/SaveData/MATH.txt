@@ -1,0 +1,4 @@
+MATH is Cool.
+MATH is Fun.
+MATH is easy.
+END OF FILE!

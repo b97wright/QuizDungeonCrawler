@@ -1,0 +1,4 @@
+SCIE is cool.
+SCIE is fun.
+SCIE is easy.
+END OF FILE!
