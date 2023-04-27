@@ -10,10 +10,6 @@ Subject::Subject(string sn)
 	Name = sn;
 }
 
-Subject::~Subject()
-{
-
-}
 
 string Subject::getSubjectName()
 {
@@ -44,6 +40,14 @@ void Subject::sAddQuestion()
 		questionCount++;
 	}
 	cout << endl;
+}
+
+void Subject::lAddQuestion(vector<string> loadQuestions)
+{
+	for (int i = 0; i < loadQuestions.size(); i++)
+	{
+		Q_Guess.push_back(loadQuestions[i]);
+	}
 }
 
 void Subject::sRemoveQuestion()

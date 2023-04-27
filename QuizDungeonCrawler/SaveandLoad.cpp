@@ -44,14 +44,17 @@ void SaveandLoad::saveGame(vector<Subject> subSave)
 	cout << endl;
 }
 
-void SaveandLoad::loadGame()
+vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 {
 	// Load Subjects
 	const string directory = "F:\\Documents\\Visual Studio Community Code\\QuizDungeonCrawler\\QuizDungeonCrawler\\SaveData\\";
 	bool wasSubEmpty = true;
+	int subLoadIndex = -1;
+	vector<string> questions;
 
 	for (const auto& file : std::filesystem::directory_iterator(directory))
 	{
+		subLoadIndex = -1;
 		wasSubEmpty = false;
 		if (file.is_regular_file())
 		{
@@ -59,6 +62,19 @@ void SaveandLoad::loadGame()
 			size_t dotPosition = fileName.find_last_of('.');
 			fileName = fileName.substr(0, dotPosition);
 			cout << "FileName: " << fileName << endl;
+
+			subLoad.push_back(fileName);
+
+			// find where subject index is and use that index to add to the subject questions
+
+			for (int i = 0; i < subLoad.size(); i++)
+			{
+				if (subLoad[i].getSubjectName() == fileName)
+				{
+					int subLoadIndex = i;
+				}
+			}
+
 
 			ifstream ifs(file.path().string());
 
@@ -68,8 +84,13 @@ void SaveandLoad::loadGame()
 				string line;
 				while (getline(ifs, line))
 				{
-					cout << line << endl;
+					if (line != "END OF FILE!")
+					{
+						questions.push_back(line);
+					}
+					
 				}
+				// Fix this subLoad[subLoadIndex].sAddQuestion();
 				ifs.close();
 			}
 			else
@@ -84,5 +105,6 @@ void SaveandLoad::loadGame()
 		cout << "It seem that you have no save files to load from!" << endl;
 	}
 
+	return subLoad;
 	// Load Player Character 
 }

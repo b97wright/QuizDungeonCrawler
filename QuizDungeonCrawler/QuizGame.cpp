@@ -87,7 +87,7 @@ void QuizGame::playGame()
 void QuizGame::loadGame()
 {
 	cout << "Please wait while we load the game from your last save data!" << endl;
-	saveandload.loadGame();
+	subjects = saveandload.loadGame(subjects);
 }
 
 void QuizGame::saveGame()

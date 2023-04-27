@@ -12,12 +12,12 @@ class Subject
 public:
 	Subject();
 	Subject(string sn);
-	~Subject();
 
 	string getSubjectName();
 	int getQuestionSize();
 
 	void sAddQuestion();
+	void lAddQuestion(vector<string> loadQuestions);
 	void sRemoveQuestion();
 	void sPrintQuestions();
 	void sEditQuestions();

@@ -16,7 +16,7 @@ public:
 	~SaveandLoad();
 
 	void saveGame(vector<Subject> subSave);
-	void loadGame();
+	vector<Subject> loadGame(vector<Subject> subSave);
 private:
 	string subSaveName;
 };
