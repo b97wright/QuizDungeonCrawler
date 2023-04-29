@@ -54,7 +54,6 @@ vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 
 	for (const auto& file : std::filesystem::directory_iterator(directory))
 	{
-		subLoadIndex = -1;
 		wasSubEmpty = false;
 		if (file.is_regular_file())
 		{
@@ -71,7 +70,7 @@ vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 			{
 				if (subLoad[i].getSubjectName() == fileName)
 				{
-					int subLoadIndex = i;
+					subLoadIndex = i;
 				}
 			}
 
@@ -90,7 +89,7 @@ vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 					}
 					
 				}
-				// Fix this subLoad[subLoadIndex].sAddQuestion();
+				subLoad[subLoadIndex].lAddQuestion(questions);
 				ifs.close();
 			}
 			else
