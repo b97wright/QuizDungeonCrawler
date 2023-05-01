@@ -101,9 +101,21 @@ void Subject::sEditQuestions()
 
 }
 
-void Subject::generateQuestions()
+// ---------- generateQuestions ----------
+/* -------------------------------
+This function is responsible for generating 
+questions and answers from the Q_Guess vector
+so that the guess Questions are random. Takes in 
+an index so it knows what question to use. 
+   ------------------------------- */
+void Subject::generateQuestions(int index)
 {
-
+	// Get the question from the index
+	// Then you will remove the Punctuation from the question
+	// Then you will split the question up into words, IE: i am the dog, I, am, the, dog
+	// Then you will pick a word to black out
+	// What ever word is blacked out, you will make replace it with _____ for the question on screen
+	// The replaced word will be stored in answer so the user can guess the word. 
 }
 
 string Subject::removePunctuation()
