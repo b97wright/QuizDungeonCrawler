@@ -22,7 +22,7 @@ public:
 	void sPrintQuestions();
 	void sEditQuestions();
 
-	void generateQuestions();
+	void generateQuestions(int index);
 	string removePunctuation();
 
 	bool isSubjectQuestionEmpty();
@@ -34,6 +34,8 @@ private:
 	string CurrentGuessQuestion;
 	vector<string> Q_Guess;
 	vector<string> A_Guess;
+	string currentGuessQuestion;
+	string currentGuessAnswer;
 	vector<int> isQuestionUsed;
 	int questionRemoveIndex;
 };
