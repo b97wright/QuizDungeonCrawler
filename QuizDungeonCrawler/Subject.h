@@ -22,14 +22,19 @@ public:
 	void sPrintQuestions();
 	void sEditQuestions();
 
+	void generateQuestions();
+	string removePunctuation();
+
 	bool isSubjectQuestionEmpty();
 
 	string returnQuestion(int index);
 
 private:
 	string Name;
+	string CurrentGuessQuestion;
 	vector<string> Q_Guess;
 	vector<string> A_Guess;
+	vector<int> isQuestionUsed;
 	int questionRemoveIndex;
 };
 

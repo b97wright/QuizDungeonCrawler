@@ -3,6 +3,7 @@
 Subject::Subject()
 {
 	Name = "subject name";
+	CurrentGuessQuestion = "-1";
 }
 
 Subject::Subject(string sn)
@@ -98,6 +99,16 @@ void Subject::sPrintQuestions()
 void Subject::sEditQuestions()
 {
 
+}
+
+void Subject::generateQuestions()
+{
+
+}
+
+string Subject::removePunctuation()
+{
+	return string();
 }
 
 bool Subject::isSubjectQuestionEmpty()
