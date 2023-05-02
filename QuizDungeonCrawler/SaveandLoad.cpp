@@ -30,8 +30,10 @@ void SaveandLoad::saveGame(vector<Subject> subSave)
 				string inputIntoFile;
 				inputIntoFile = subSave[i].returnQuestion(j);
 				myFile << inputIntoFile << endl;
+				inputIntoFile = subSave[i].returnAnswer(j);
+				myFile << inputIntoFile << endl;
 			}
-			myFile << "END OF FILE!";
+			myFile << "END File";
 			myFile.close();
 		}
 		else
@@ -51,6 +53,8 @@ vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 	bool wasSubEmpty = true;
 	int subLoadIndex = -1;
 	vector<string> questions;
+	vector<string> answers;
+	bool isQuestion = true;
 
 	for (const auto& file : std::filesystem::directory_iterator(directory))
 	{
@@ -83,13 +87,22 @@ vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 				string line;
 				while (getline(ifs, line))
 				{
-					if (line != "END OF FILE!")
+					if (line != "END File")
 					{
-						questions.push_back(line);
+						if (isQuestion)
+						{
+							questions.push_back(line);
+							isQuestion = false;
+						}
+						else
+						{
+							answers.push_back(line);
+							isQuestion = true;
+						}
 					}
 					
 				}
-				subLoad[subLoadIndex].lAddQuestion(questions);
+				subLoad[subLoadIndex].lAddQuestion(questions, answers);
 				ifs.close();
 			}
 			else

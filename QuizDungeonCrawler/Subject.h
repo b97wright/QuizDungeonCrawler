@@ -17,7 +17,7 @@ public:
 	int getQuestionSize();
 
 	void sAddQuestion();
-	void lAddQuestion(vector<string> loadQuestions);
+	void lAddQuestion(vector<string> loadQuestions, vector<string> loadAnswers);
 	void sRemoveQuestion();
 	void sPrintQuestions();
 	void sEditQuestions();
@@ -28,6 +28,7 @@ public:
 	bool isSubjectQuestionEmpty();
 
 	string returnQuestion(int index);
+	string returnAnswer(int index);
 
 private:
 	string Name;
@@ -38,5 +39,6 @@ private:
 	string currentGuessAnswer;
 	vector<int> isQuestionUsed;
 	int questionRemoveIndex;
+	int questionEditIndex;
 };
 

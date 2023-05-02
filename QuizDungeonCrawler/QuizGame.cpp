@@ -106,7 +106,13 @@ also set up the Enitity Class, Player Class, Enemy Class
    ------------------------------- */
 void QuizGame::playGame()
 {
+	int index;
+	printSubject();
 	cout << "\nSelect a Subject that you would like to be tested in: " << endl;
+	cin >> index;
+
+	// this is just a sample
+
 }
 
 // ---------- loadGame ----------
@@ -288,6 +294,7 @@ void QuizGame::removeSubject()
 		{
 
 		}
+		// What is happening here is we are trying to find the index of the question that you want to remove
 		else
 		{
 			int currentMax = subjects.size();
@@ -299,6 +306,7 @@ void QuizGame::removeSubject()
 
 			}
 
+			// Once the editRemoveIndex is found, you can use that to remove it from the vector
 			subjects.erase(subjects.begin() + editRemoveIndex);
 		}
 	}
