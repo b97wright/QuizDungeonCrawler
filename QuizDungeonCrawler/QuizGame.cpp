@@ -48,6 +48,7 @@ void QuizGame::mainMenu()
 		{
 		case 1:
 		{
+			playGame();
 			break;
 		}
 		case 2:
@@ -107,11 +108,44 @@ also set up the Enitity Class, Player Class, Enemy Class
 void QuizGame::playGame()
 {
 	int index;
+	int lives = 3;
+	string Guess;
+	bool isPlaying = true;
 	printSubject();
 	cout << "\nSelect a Subject that you would like to be tested in: " << endl;
 	cin >> index;
+	int questionSize = subjects[index].getQuestionSize();
+
+	// TODO add an initial character setup
+	// If there is a character load it, if not make a new one
 
 	// this is just a sample
+	while(lives > 0)
+	{
+		// This is a general sample of how the game will function in reguards to the play game portion
+		// First the User will pic a subject
+		// Enter the dungeon
+		// Traverse the dungeon
+		// Fight monsters/answer questions
+		// Survive in teh dungeon for as long as you can
+		// Every time you kill a monster, you get a killing monster tally. 
+		cout << lives << "/ 3 life points" << endl;
+		cout << "You are battling a monster in the dungeon..." << endl;
+		cout << subjects[index].returnQuestion(0) << endl;
+		cin >> Guess;
+		Guess;
+		string temp = subjects[index].returnAnswer(0);
+
+		if (subjects[index].returnAnswer(0).compare(Guess) == 0)
+		{
+			cout << "You attack the monster for one life!!!" << endl;
+		}
+		else
+		{
+			cout << "The monster atacked you for one life!!!" << endl;
+			lives--;
+		}
+	}
 
 }
 
