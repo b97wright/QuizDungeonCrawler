@@ -108,8 +108,11 @@ also set up the Enitity Class, Player Class, Enemy Class
 void QuizGame::playGame()
 {
 	int index;
+	int randomQuestionNum = -1;
+	srand(time(nullptr));
 	int lives = 3;
 	string Guess;
+	string Answer;
 	bool isPlaying = true;
 	printSubject();
 	cout << "\nSelect a Subject that you would like to be tested in: " << endl;
@@ -129,22 +132,30 @@ void QuizGame::playGame()
 		// Fight monsters/answer questions
 		// Survive in teh dungeon for as long as you can
 		// Every time you kill a monster, you get a killing monster tally. 
+
+		randomQuestionNum = rand() % subjects[index].getQuestionSize();
 		cout << lives << "/ 3 life points" << endl;
 		cout << "You are battling a monster in the dungeon..." << endl;
-		cout << subjects[index].returnQuestion(0) << endl;
+		cout << subjects[index].returnQuestion(randomQuestionNum) << endl;
 		cin >> Guess;
 		Guess;
-		string temp = subjects[index].returnAnswer(0);
 
-		if (subjects[index].returnAnswer(0).compare(Guess) == 0)
+		Guess = toLowerString(Guess);
+		Answer = subjects[index].returnAnswer(randomQuestionNum);
+		Answer = toLowerString(Answer);
+
+		if (Guess.compare(Answer) == 0)
 		{
+			cout << "Correct, the Answer is " << Guess << endl;
 			cout << "You attack the monster for one life!!!" << endl;
 		}
 		else
 		{
+			cout << "Incorrect, the Answer is " << Guess << endl;
 			cout << "The monster atacked you for one life!!!" << endl;
 			lives--;
 		}
+		cout << endl;
 	}
 
 }

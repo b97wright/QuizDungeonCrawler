@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 #include "Subject.h"
 #include "SaveandLoad.h"
 
@@ -31,6 +34,13 @@ public:
 	void removeQuestion(int index);
 	void printQuestion(int index);
 	void editQuestion(int index);
+
+	// Play Game
+	string toLowerString(string str)
+	{
+		transform(str.begin(), str.end(), str.begin(), ::tolower);
+		return str;
+	}
 
 private:
 	bool mainIsPlaying;
