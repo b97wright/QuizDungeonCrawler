@@ -7,7 +7,6 @@ QuizGame::QuizGame()
 	isEdit = true;
 	isEditSubject = true;
 	menuChoice = -1;
-	editChoice = -1;
 	editSubjectChoice = -1;
 	editRemoveIndex = -1;
 	editSubjectIndex = -1;
@@ -17,110 +16,127 @@ QuizGame::~QuizGame()
 {
 }
 
-// ---------- Main Menu ----------
-// ---------- mainMenu ----------
-/* -------------------------------
-This is where you will be able to branch 
-off between the different parts of the 
-game, wether that is playing, loading, 
-saving, editing or simply learn how to 
-play the game
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: mainMenu
+	Description: This function is the main control loop of the entire program. It's a function that runs in a loop,
+	repeatedly displaying a menu to the user and responding to the user's input.
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::mainMenu()
 {
-	while (mainIsPlaying)
+	// Variables
+	// Bool
+	bool quitGame = false;
+	// Int
+	int menuSelect = 0;
+
+	while (!quitGame)
 	{
-		// Main Menu 
-		cout << "---------- Main Menu ----------" << endl;
-		cout << "Select a number in the menu to continue. " << endl;
-		cout << "1) - Play Game -" << endl;
-		cout << "2) - Load Game -" << endl;
-		cout << "3) - Save Game -" << endl;
-		cout << "4) - Edit Game -" << endl;
-		cout << "5) - How To Play -" << endl;
-		cout << "6) - Quit -" << endl;
-		cout << "Main Menu Choice: ";
-		cin >> menuChoice;
-		cout << endl;
+		// Main Menu
+		std::cout << "---------- Main Menu ----------" << std::endl;
+		std::cout << "Select a number in the menu to continue. " << std::endl;
+		std::cout << "1) - Play Game -" << std::endl;
+		std::cout << "2) - Load Game -" << std::endl;
+		std::cout << "3) - Save Game -" << std::endl;
+		std::cout << "4) - Edit Game -" << std::endl;
+		std::cout << "5) - How To Play -" << std::endl;
+		std::cout << "6) - Quit -" << std::endl << std::endl;
+		std::cout << "Main Menu Choice: ";
 
-		// Switch Menu for the Main Menu Choice
-		switch (menuChoice)
+		// Input Validation to make sure the user is inputting the right information.
+		if (std::cin >> menuSelect)
 		{
-		case 1:
-		{
-			playGame();
-			break;
-		}
-		case 2:
-		{
-			// Line 
-			loadGame();
-			break;
-		}
-		case 3:
-		{
-			// Line 
-			saveGame();
-			break;
-		}
-		case 4:
-		{
-			// Line 
-			editGame();
-			break;
-		}
-		case 5:
-		{
-			// Line 
-			howToPlay();
-			break;
-		}
+			std::cout << std::endl;
 
-		case 6:
-		{
-			cout << "Thank you for playing!!!" << endl;
-			cout << "Have a fun day!!!" << endl;
-			cout << "Good luck with your Studies!!!" << endl;
-			mainIsPlaying = false;
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
+			// Switch Case for Menu Select
+			switch (menuSelect)
+			{
+			case 1:
+			{
+				playGame();
+				break;
+			}
+			case 2:
+			{
+				loadGame();
+				break;
+			}
+			case 3:
+			{
+				saveGame();
+				break;
+			}
+			case 4:
+			{
+				editGame();
+				break;
+			}
+			case 5:
+			{
+				howToPlay();
+				break;
+			}
+			case 6:
+			{
+				std::cout << "Thank you for playing!!!" << std::endl;
+				std::cout << "Have a fun day!!!" << std::endl;
+				std::cout << "Good luck with your Studies!!!" << std::endl;
+				quitGame = true;
+				break;
+			}
+			default:
+			{
+				std::cout << "Invalid choice, please select a number between 1 and 6." << std::endl;
+				break;
+			}
+			}
 
+		}
+		else
+		{
+			// User entered the wrong information, also clearing the input buffer as well
+			std::cout << "" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
 	}
 }
 
-// ---------- playGame ----------
-/* -------------------------------
-This is the function that is responsible 
-for leading the play to be able to start 
-the game. This function will lead the player 
-into setting up the game an other nemours parts 
-that the player will have to do in order to 
-set the game up. 
-
-TODO: Make the Play Game Function part of the game,
-also set up the Enitity Class, Player Class, Enemy Class 
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: playGame
+	Description: This function is the is going to be the main function responsible for playing the game. Allowing the player
+	to pick either one subject or all subject, to be quized on the subjects while being in the dungeon.
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::playGame()
 {
+	// Remember to make this look more neat
 	int index;
 	int randomQuestionNum = -1;
 	srand(time(nullptr));
 	int lives = 3;
-	string Guess;
-	string Answer;
-	bool isPlaying = true;
-	printSubject();
-	cout << "\nSelect a Subject that you would like to be tested in: " << endl;
-	cin >> index;
-	int questionSize = subjects[index].getQuestionSize();
+	string Guess, Answer;
+	bool isPlaying = true, isRandom = false;
+	vector<int> counter;
 
+	printSubject();
+	cout << endl;
+	cout << "Select a Subject that you would like to be tested in. " << endl;
+	cout << "Either Select -1 for all subjects to be tested at random or one of the index. \nChoice: ";
+	cin >> index;
+
+	// This is where the program choose between if the use put random subjects or specific subject
+	if (index == -1)
+	{
+		isRandom = true;
+	}
 	// TODO add an initial character setup
 	// If there is a character load it, if not make a new one
+
+	// Should we do this before they even play the game. 
+	// If User clicked Random, make sure each subject has questions in them. 
+	if (isRandom)
+	{
+	}
+
 
 	// this is just a sample
 	while(lives > 0)
@@ -131,11 +147,14 @@ void QuizGame::playGame()
 		// Traverse the dungeon
 		// Fight monsters/answer questions
 		// Survive in teh dungeon for as long as you can
-		// Every time you kill a monster, you get a killing monster tally. 
+		// Every time you kill a monster, you get a killing monster tally.
 
+		// Get Random Question for User to answer
 		randomQuestionNum = rand() % subjects[index].getQuestionSize();
+
 		cout << lives << "/ 3 life points" << endl;
 		cout << "You are battling a monster in the dungeon..." << endl;
+		cout << "Subject: " << subjects[index].getSubjectName();
 		cout << subjects[index].returnQuestion(randomQuestionNum) << endl;
 		cin >> Guess;
 		Guess;
@@ -160,95 +179,87 @@ void QuizGame::playGame()
 
 }
 
-// ---------- loadGame ----------
-/* -------------------------------
-This is the function that is responsible
-for allow the player to load the game with 
-the subjects, questions and player data 
-for the game. 
-
-TODO: need to load the player Data 
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: loadGame
+	Description: This function is responsible for loading the game. From loading the subjects, questions, and answers to the 
+	players stats, and current floor level. 
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::loadGame()
 {
 	cout << "Please wait while we load the game from your last save data!" << endl;
 	subjects = saveandload.loadGame(subjects);
 }
 
-// ---------- saveGame ----------
-/* -------------------------------
-This is the function that is responsible
-for allow the player to save the game with
-the subjects, questions and player data
-for the game.
-
-TODO: need to save the player Data
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: saveGame
+	Description: This function is responsible for saving the game. From loading the subjects, questions, and answers to the
+	players stats, and current floor level.
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::saveGame()
 {
 	cout << "Please wait while we save the game to your local save location!" << endl;
 	saveandload.saveGame(subjects);
 }
 
-// ---------- editGame ----------
-/* -------------------------------
-This is the function that is responsible
-for allow the player to edit the game. 
-This is for the difficulty for the game, 
-edit the subjects for the game as well 
-that the player will use in game. 
-
-TODO: Edit the play game settings, 
-how hard the game is
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: editGame
+	Description: This function is responsible for editing thegame, from editing subjects, questions, and answers.
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::editGame()
 {
+	// Variables
+	// Int
+	int editSelect = 0;
+	// Bool
+	bool isEdit = true;
+
 	while (isEdit)
 	{
-		// Edit Menu
-		cout << "---------- Edit Game ----------" << endl;
-		cout << "Select a number in the edit menu to continue. " << endl;
-		cout << "1) - Add a Subject -" << endl;
-		cout << "2) - Remove a Subject -" << endl;
-		cout << "3) - Print Subject -" << endl;
-		cout << "4) - Edit a Subject" << endl;
-		cout << "5) - Return to Main Menu -" << endl;
-		cout << "Edit Game Choice: ";
-		cin >> editChoice;
-		cout << endl;
+		// Edit menu
+		std::cout << "---------- Edit Menu ----------" << std::endl;
+		std::cout << "Select a number in the menu to continue. " << std::endl;
 
-		// This If statement is checking to see if subjects is empty and it will fire but only if the player does not pick 
-		// option 5 or 1. 
-		if (subjects.empty() == true && editChoice != 5 && editChoice != 1)
+		// If Subjects are empty, Only let user Add a subject, otherwise offer them the full menu
+		if (!subjects.empty())
 		{
-			cout << "Please add a subject(s) before wanting to remove, edit or print a subject(s)!\n" << endl;
+			std::cout << "1) - Add A Subject -" << std::endl;
+			std::cout << "2) - Remove a Subject -" << std::endl;
+			std::cout << "3) - Print Subject -" << std::endl;
+			std::cout << "4) - Edit A Subject -" << std::endl;
 		}
 		else
 		{
-			// Switch statement for Edit Menu
-			switch (editChoice)
+			std::cout << "1) - Add A Subject -" << std::endl;
+		}
+
+		std::cout << "5) - Return To Main Menu -" << std::endl;
+		std::cout << "6) - Quit -" << std::endl << std::endl;
+		std::cout << "Main Menu Choice: ";
+
+		// Input Validation for the edit menu
+		if (std::cin >> editSelect)
+		{
+			std::cout << endl;
+
+			switch (editSelect)
 			{
 			case 1:
 			{
-				// Line 
 				addSubject();
 				break;
 			}
 			case 2:
 			{
-				// Line
 				removeSubject();
 				break;
 			}
 			case 3:
 			{
-				// Line
 				printSubject();
 				break;
 			}
 			case 4:
 			{
-				// Line
 				editSubject();
 				break;
 			}
@@ -259,113 +270,136 @@ void QuizGame::editGame()
 				isEdit = false;
 				break;
 			}
+			case 6:
+			{
+				std::cout << "Thank you for playing!!!" << std::endl;
+				std::cout << "Have a fun day!!!" << std::endl;
+				std::cout << "Good luck with your Studies!!!" << std::endl;
+				exit(0);
+			}
 			default:
 			{
 				break;
 			}
 			}
 		}
-
-
+		// If User has made a wrong input, notifities user and clears the input stream
+		else
+		{
+			std::cout << "Invalid input, please enter a number." << std::endl;
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
 
 	}
-	isEdit = true;
-	cout << endl;
 }
-// ---------- How To Play ----------
-/* -------------------------------
-This is the function that is responsible
-for teaching the player the ins and outs 
-of this small game. This ranges from 
-teaching the player how to make subjects 
-for them to add questions, to teaching the 
-player how to edit the game for play and 
-how to do anything else to make this game 
-function as intended. 
 
-TODO: Add a How to Play Section
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: howToPlay
+	Description: This function is responsible for teaching the player
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::howToPlay()
 {
 	cout << "This will tell you the Rules of the Game!!!" << endl;
 	cout << endl;
 }
 
-// ---------- Edit Menu ----------
-// ---------- addSubject ----------
-/* -------------------------------
-This is the function that is responsible
-for allow the player add a subject vector 
-that they want to be able to be tested from 
-while playing the game. 
-
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: addSubject
+	Description: This function is responsible for adding a user created subject into the vector of subjects
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::addSubject()
 {
-	cout << "---------- Add Subject ----------" << endl;
-	cout << "What subject woudl you like to be added: " << endl;
-	cin >> subjectName;
+	std::string subjectName;
 
+	// Prompt for subject name
+	std::cout << "---------- Add Subject ----------" << std::endl;
+	std::cout << "Enter the name of the subject you would like to add: " << std::endl;
+
+	// Get the subject name, including spaces
+	std::cin.ignore(); // Clear out the newline character from the previous input
+	std::getline(std::cin, subjectName);
+
+	// Input validation
+	if (subjectName.empty())
+	{
+		std::cout << "Subject name cannot be empty. Please try again." << std::endl;
+		return;
+	}
+
+	for (const auto& subject : subjects)
+	{
+		if (subject.getSubjectName() == subjectName)
+		{
+			std::cout << "This subject already exists. Please try again." << std::endl;
+			return;
+		}
+	}
+
+	// Add the subject to the list
 	subjects.push_back(Subject(subjectName));
-	cout << endl;
+	std::cout << subjectName << " has been added successfully.\n" << std::endl;
 }
 
-// ---------- removeSubject ----------
-/* -------------------------------
-This is the function that is responsible
-for allow the player remove a subject vector 
-that they want to be able to be tested from
-while playing the game.
 
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: removeSubject
+	Description: This function is responsible for removing a user created subject into the vector of subjects
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::removeSubject()
 {
-	// Debating wether I need this because I already do the check back on line 171, but I will keep it for now. Address Later
-	cout << "---------- Remove Question ----------" << endl;
-	if (subjects.empty() == true)
+	// Variables
+	// bool
+	bool removingSubject = true;
+
+	cout << "---------- Remove Subject ----------" << endl;
+	// Check if subjects is empty
+	if (subjects.empty())
 	{
-		cout << "You have no subjects present!" << endl;;
+		cout << "You have no subjects present!" << endl;
+		return;
 	}
-	else
+
+	printSubject();
+
+	while (true)
 	{
-		printSubject();
 		cout << "Which subject would you like to be removed, please select the index, or -1 to go back: ";
 		cin >> editRemoveIndex;
 
-		// Need to do a different way in which I check this because having the empty if loop is kinda goofy NGL
+		// Check if input is valid
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << "Invalid input. Please enter a number." << endl;
+			continue;
+		}
+
 		if (editRemoveIndex == -1)
 		{
-
+			removingSubject = false; // Stop the loop if user wants to go back
 		}
-		// What is happening here is we are trying to find the index of the question that you want to remove
-		else
+		else if (editRemoveIndex >= 0 && editRemoveIndex < subjects.size())
 		{
-			int currentMax = subjects.size();
-			while (!(editRemoveIndex >= 0 && editRemoveIndex <= currentMax))
-			{
-				cout << "The number you selected was not apart of the index. \nPlease enter a number between 0 through " << subjects.size() - 1 << endl;
-				cout << "Which subject would you like to be removed, please select the index: ";
-				cin >> editRemoveIndex;
-
-			}
-
 			// Once the editRemoveIndex is found, you can use that to remove it from the vector
 			subjects.erase(subjects.begin() + editRemoveIndex);
+			removingSubject = false;  // Stop the loop after removing the subject
+		}
+		else
+		{
+			cout << "The number you selected was not a part of the index. \nPlease enter a number between 0 and " << subjects.size() - 1 << endl;
 		}
 	}
+
 	cout << endl;
 }
 
-// ---------- printSubject ----------
-/* -------------------------------
-This is the function that is responsible
-for allow the player print all subject that 
-are found in the subjects vector. 
 
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: printSubject
+	Description: This function is responsible for adding a user created subject into the vector of subjects
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::printSubject()
 {
 	cout << "---------- List of Subjects ----------" << endl;
@@ -380,156 +414,175 @@ void QuizGame::printSubject()
 	cout << endl;
 }
 
-// ---------- editSubject ----------
-/* -------------------------------
-This is the function that is responsible
-for the player to edit a subject of their choosing 
-allowing them to progress to the edit subject menu.
-
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: editSubject
+	Description: This function is responsible for editing a user created subject into the vector of subjects
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::editSubject()
 {
+	// Variables
+	// Bool
+	bool editingSubject = true;
+
+	// Check if Subjects is empty
+	if (subjects.empty()) {
+		cout << "No subjects available to edit." << endl;
+		return;
+	}
+
 	printSubject();
-	cout << "Which subject would you like to be edit, please select the index: ";
+	cout << "Which subject would you like to edit? Please select the index, or enter -1 to go back: ";
 	cin >> editSubjectIndex;
 
-	int currentMax = subjects.size();
-	while (!(editSubjectIndex >= 0 && editSubjectIndex <= currentMax))
+	while (editingSubject)
 	{
-		cout << "The number you selected was not apart of the index. \nPlease enter a number between 0 through " << subjects.size() - 1 << endl;
-		cout << "Which subject would you like to edit, please select the index: ";
-		cin >> editSubjectIndex;
-	}
-	cout << endl;
-	editSubjectMenu(editSubjectIndex);
-
-}
-
-// ---------- Edit Subject Menu ----------
-// ---------- editSubject ----------
-/* -------------------------------
-This is where you will be able to branch
-off between the different parts for 
-editing a subject. 
-
-TODO: TBD
-   ------------------------------- */
-void QuizGame::editSubjectMenu(int index)
-{
-	// FYI the index is there so the code can choose the right index for the Vector of subjects. IE 0 = MATH, 1 = SCIE, etc.
-	while (isEditSubject)
-	{
-		cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
-		cout << "Select a number in the edit subject menu to continue. " << endl;
-		cout << "1) - Add Questions -" << endl;
-		cout << "2) - Remove a Question -" << endl;
-		cout << "3) - Print Questions -" << endl;
-		cout << "4) - Edit a Question" << endl;
-		cout << "5) - Return to Edit Menu -" << endl;
-		cout << "Subject Menu Choice: ";
-		cin >> editSubjectChoice;
-		cout << endl;
-
-		if (subjects[index].isSubjectQuestionEmpty() == true && editSubjectChoice != 5 && editSubjectChoice != 1)
+		// Check if input is valid
+		if (cin.fail())
 		{
-			cout << "Please add a question(s) in the subject: " << subjects[index].getSubjectName() << " before wanting to remove, edit or print a question(s)!\n" << endl;
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << "Invalid input. Please enter a number." << endl;
+			continue;
+		}
+
+		if (editSubjectIndex == -1)
+		{
+			editingSubject = false;  // User chose to go back
+		}
+		else if (editSubjectIndex >= 0 && editSubjectIndex < subjects.size())
+		{
+			editingSubject = false;  // User entered a valid index
+			editSubjectMenu(editSubjectIndex);
 		}
 		else
 		{
-			// Main Switch for Subject Choice
-			switch (editSubjectChoice)
-			{
-			case 1:
-			{
-				// Line
-				addQuestion(index);
-				break;
-			}
-			case 2:
-			{
-				// Line
-				removeQuestion(index);
-				break;
-			}
-			case 3:
-			{
-				// Line
-				printQuestion(index);
-				break;
-			}
-			case 4:
-			{
-				// Line
-				printQuestion(index);
-				break;
-			}
-			case 5:
-			{
-				// Returns back to the Edit Menu
-				cout << "Returning Back to Edit Menu" << endl;
-				isEditSubject = false;
-				break;
-			}
-			default:
-				break;
-			}
+			cout << "The number you selected was not a part of the index. \nPlease enter a number between 0 and " << subjects.size() - 1 << endl;
+		}
+
+		if (editingSubject)
+		{
+			cout << "Which subject would you like to edit? Please select the index: ";
+			cin >> editSubjectIndex;
 		}
 	}
-	isEditSubject = true;
 	cout << endl;
 }
 
-// ---------- addQuestion ----------
-/* -------------------------------
-This function links to the add function for
-a specific subjects questions. Add a question 
-to the specific subjects vector for questions. 
 
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: editSubjectMenu
+	Description: This function is main control loop for editing a user created subject, from question, answers, and name of 
+	the subject.
+---------------------------------------------------------------------------------------------------------------------------*/
+void QuizGame::editSubjectMenu(int index)
+{
+	// Variables
+	// Int
+	int editSubjectChoice = 0;
+	// Bool
+	bool isEditSubject = true;
+
+	while (isEditSubject)
+	{
+		std::cout << "----------" << subjects[index].getSubjectName() << "----------" << std::endl;
+		std::cout << "Select a number in the edit subject menu to continue. " << std::endl;
+
+		if (!subjects[index].isSubjectQuestionEmpty())
+		{
+			std::cout << "1) - Add Questions -" << std::endl;
+			std::cout << "2) - Remove a Question -" << std::endl;
+			std::cout << "3) - Print Questions -" << std::endl;
+			std::cout << "4) - Edit a Question" << std::endl;
+		}
+		else
+		{
+			std::cout << "1) - Add Questions -" << std::endl;
+		}
+
+		std::cout << "5) - Return to Edit Menu -" << std::endl;
+		std::cout << "6) - Quit -" << std::endl;
+		std::cout << "Subject Menu Choice: ";
+
+		if (std::cin >> editSubjectChoice)
+		{
+			std::cout << std::endl;
+			switch (editSubjectChoice)
+			{
+			case 1:
+				addQuestion(index);
+				break;
+			case 2:
+				if (!subjects[index].isSubjectQuestionEmpty()) {
+					removeQuestion(index);
+				}
+				break;
+			case 3:
+				if (!subjects[index].isSubjectQuestionEmpty()) {
+					printQuestion(index);
+				}
+				break;
+			case 4:
+				if (!subjects[index].isSubjectQuestionEmpty()) {
+					editQuestion(index);
+				}
+				break;
+			case 5:
+				std::cout << "Returning Back to Edit Menu" << std::endl;
+				return;
+			case 6:
+				std::cout << "Quitting game..." << std::endl;
+				exit(0);
+			default:
+				std::cout << "Invalid choice, please select a number from the menu." << std::endl;
+				break;
+			}
+		}
+		else
+		{
+			std::cout << "Invalid input, please enter a number." << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+	}
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: addQuestion
+	Description: This function is responsible for adding a user created question into the vector of questions, and answers
+	into the vector of answers
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::addQuestion(int index)
 {
 	cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
 	subjects[index].sAddQuestion();
 }
 
-// ---------- removeQuestion ----------
-/* -------------------------------
-This function links to the remove function for
-a specific subjects questions. Remove a specific 
-question at the index the user imputs.
-
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: removeQuestion
+	Description: This function is responsible for adding a user created question into the vector of questions, and answers
+	into the vector of answers
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::removeQuestion(int index)
 {
 	cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
 	subjects[index].sRemoveQuestion();
 }
 
-// ---------- printQuestion ----------
-/* -------------------------------
-This function links to the print function for
-a specific subjects questions. Pritns all the 
-questions for the specific subject.
-
-TODO: TBD
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: removeQuestion
+	Description: This function is responsible for printing a user created question into the vector of questions, and answers
+	into the vector of answers
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::printQuestion(int index)
 {
 	cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
 	subjects[index].sPrintQuestions();
 }
 
-// ---------- editQuestion ----------
-/* -------------------------------
-This is where you will be able to branch
-off between the different parts for
-editing a subject.
-
-TODO: Finish the edit question function
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: editQuestion
+	Description: This function is responsible for editing the questions and answers.
+---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::editQuestion(int index)
 {
 

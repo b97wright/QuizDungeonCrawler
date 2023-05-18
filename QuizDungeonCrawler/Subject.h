@@ -13,7 +13,7 @@ public:
 	Subject();
 	Subject(string sn);
 
-	string getSubjectName();
+	string getSubjectName() const;
 	int getQuestionSize();
 
 	void sAddQuestion();
@@ -21,6 +21,7 @@ public:
 	void sRemoveQuestion();
 	void sPrintQuestions();
 	void sEditQuestions();
+	// add change name function
 
 	void generateQuestions(int index);
 	string removePunctuation();

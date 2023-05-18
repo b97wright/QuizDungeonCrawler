@@ -6,6 +6,9 @@
 #include "Subject.h"
 #include "SaveandLoad.h"
 
+//using namespace std::cout;
+//using namespace 
+//using namespace std::cin;
 using namespace std;
 
 class QuizGame
@@ -48,11 +51,9 @@ private:
 	bool isEdit;
 	bool isEditSubject;
 	int menuChoice;
-	int editChoice;
 	int editSubjectChoice;
 	int editRemoveIndex;
 	int editSubjectIndex;
-	string subjectName;
 	vector<Subject> subjects;
 	SaveandLoad saveandload;
 };

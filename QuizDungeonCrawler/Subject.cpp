@@ -16,7 +16,7 @@ Subject::Subject(string sn)
 This function returns the name of the 
 current classs
    ------------------------------- */
-string Subject::getSubjectName()
+string Subject::getSubjectName() const
 {
 	return Name;
 }
