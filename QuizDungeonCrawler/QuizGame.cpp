@@ -2,14 +2,6 @@
 
 QuizGame::QuizGame()
 {
-	mainIsPlaying = true;
-	isInGame = true;
-	isEdit = true;
-	isEditSubject = true;
-	menuChoice = -1;
-	editSubjectChoice = -1;
-	editRemoveIndex = -1;
-	editSubjectIndex = -1;
 }
 
 QuizGame::~QuizGame()
@@ -118,10 +110,10 @@ void QuizGame::playGame()
 	vector<int> counter;
 
 	printSubject();
-	cout << endl;
-	cout << "Select a Subject that you would like to be tested in. " << endl;
-	cout << "Either Select -1 for all subjects to be tested at random or one of the index. \nChoice: ";
-	cin >> index;
+	std::cout << std::endl;
+	std::cout << "Select a Subject that you would like to be tested in. " << std::endl;
+	std::cout << "Either Select -1 for all subjects to be tested at random or one of the index. \nChoice: ";
+	std::cin >> index;
 
 	// This is where the program choose between if the use put random subjects or specific subject
 	if (index == -1)
@@ -152,11 +144,11 @@ void QuizGame::playGame()
 		// Get Random Question for User to answer
 		randomQuestionNum = rand() % subjects[index].getQuestionSize();
 
-		cout << lives << "/ 3 life points" << endl;
-		cout << "You are battling a monster in the dungeon..." << endl;
-		cout << "Subject: " << subjects[index].getSubjectName();
-		cout << subjects[index].returnQuestion(randomQuestionNum) << endl;
-		cin >> Guess;
+		std::cout << lives << "/ 3 life points" << std::endl;
+		std::cout << "You are battling a monster in the dungeon..." << std::endl;
+		std::cout << "Subject: " << subjects[index].getSubjectName();
+		std::cout << subjects[index].returnQuestion(randomQuestionNum) << std::endl;
+		std::cin >> Guess;
 		Guess;
 
 		Guess = toLowerString(Guess);
@@ -165,16 +157,16 @@ void QuizGame::playGame()
 
 		if (Guess.compare(Answer) == 0)
 		{
-			cout << "Correct, the Answer is " << Guess << endl;
-			cout << "You attack the monster for one life!!!" << endl;
+			std::cout << "Correct, the Answer is " << Guess << std::endl;
+			std::cout << "You attack the monster for one life!!!" << std::endl;
 		}
 		else
 		{
-			cout << "Incorrect, the Answer is " << Guess << endl;
-			cout << "The monster atacked you for one life!!!" << endl;
+			std::cout << "Incorrect, the Answer is " << Guess << std::endl;
+			std::cout << "The monster atacked you for one life!!!" << std::endl;
 			lives--;
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}
 
 }
@@ -186,7 +178,7 @@ void QuizGame::playGame()
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::loadGame()
 {
-	cout << "Please wait while we load the game from your last save data!" << endl;
+	std::cout << "Please wait while we load the game from your last save data!" << std::endl;
 	subjects = saveandload.loadGame(subjects);
 }
 
@@ -197,7 +189,7 @@ void QuizGame::loadGame()
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::saveGame()
 {
-	cout << "Please wait while we save the game to your local save location!" << endl;
+	std::cout << "Please wait while we save the game to your local save location!" << std::endl;
 	saveandload.saveGame(subjects);
 }
 
@@ -239,7 +231,7 @@ void QuizGame::editGame()
 		// Input Validation for the edit menu
 		if (std::cin >> editSelect)
 		{
-			std::cout << endl;
+			std::cout << std::endl;
 
 			switch (editSelect)
 			{
@@ -266,7 +258,7 @@ void QuizGame::editGame()
 			case 5:
 			{
 				// Returns User back to the Main Menu 
-				cout << "Returning Back to Main Menu" << endl;
+				std::cout << "Returning Back to Main Menu" << std::endl;
 				isEdit = false;
 				break;
 			}
@@ -287,8 +279,8 @@ void QuizGame::editGame()
 		else
 		{
 			std::cout << "Invalid input, please enter a number." << std::endl;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 
 	}
@@ -300,8 +292,8 @@ void QuizGame::editGame()
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::howToPlay()
 {
-	cout << "This will tell you the Rules of the Game!!!" << endl;
-	cout << endl;
+	std::cout << "This will tell you the Rules of the Game!!!" << std::endl;
+	std::cout << std::endl;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------
@@ -349,30 +341,32 @@ void QuizGame::addSubject()
 void QuizGame::removeSubject()
 {
 	// Variables
+	// int
+	int editRemoveIndex = -1;
 	// bool
 	bool removingSubject = true;
 
-	cout << "---------- Remove Subject ----------" << endl;
+	std::cout << "---------- Remove Subject ----------" << std::endl;
 	// Check if subjects is empty
 	if (subjects.empty())
 	{
-		cout << "You have no subjects present!" << endl;
+		std::cout << "You have no subjects present!" << std::endl;
 		return;
 	}
 
 	printSubject();
 
-	while (true)
+	while (removingSubject)
 	{
-		cout << "Which subject would you like to be removed, please select the index, or -1 to go back: ";
-		cin >> editRemoveIndex;
+		std::cout << "Which subject would you like to be removed, please select the index, or -1 to go back: ";
+		std::cin >> editRemoveIndex;
 
 		// Check if input is valid
-		if (cin.fail())
+		if (std::cin.fail())
 		{
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			cout << "Invalid input. Please enter a number." << endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid input. Please enter a number." << std::endl;
 			continue;
 		}
 
@@ -388,11 +382,11 @@ void QuizGame::removeSubject()
 		}
 		else
 		{
-			cout << "The number you selected was not a part of the index. \nPlease enter a number between 0 and " << subjects.size() - 1 << endl;
+			std::cout << "The number you selected was not a part of the index. \nPlease enter a number between 0 and " << subjects.size() - 1 << std::endl;
 		}
 	}
 
-	cout << endl;
+	std::cout << std::endl;
 }
 
 
@@ -402,16 +396,16 @@ void QuizGame::removeSubject()
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::printSubject()
 {
-	cout << "---------- List of Subjects ----------" << endl;
+	std::cout << "---------- List of Subjects ----------" << std::endl;
 	if (subjects.empty() == true)
 	{
-		cout << "There are no subjects to print!" << endl;
+		std::cout << "There are no subjects to print!" << std::endl;
 	}
 	for (int i = 0; i < subjects.size(); i++)
 	{
-		cout << i << ") " << subjects[i].getSubjectName() << endl;
+		std::cout << i << ") " << subjects[i].getSubjectName() << std::endl;
 	}
-	cout << endl;
+	std::cout << endl;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------
@@ -421,27 +415,29 @@ void QuizGame::printSubject()
 void QuizGame::editSubject()
 {
 	// Variables
+	// int
+	int editSubjectIndex = -1;
 	// Bool
 	bool editingSubject = true;
 
 	// Check if Subjects is empty
 	if (subjects.empty()) {
-		cout << "No subjects available to edit." << endl;
+		std::cout << "No subjects available to edit." << std::endl;
 		return;
 	}
 
 	printSubject();
-	cout << "Which subject would you like to edit? Please select the index, or enter -1 to go back: ";
-	cin >> editSubjectIndex;
+	std::cout << "Which subject would you like to edit? Please select the index, or enter -1 to go back: ";
+	std::cin >> editSubjectIndex;
 
 	while (editingSubject)
 	{
 		// Check if input is valid
-		if (cin.fail())
+		if (std::cin.fail())
 		{
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			cout << "Invalid input. Please enter a number." << endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid input. Please enter a number." << std::endl;
 			continue;
 		}
 
@@ -456,16 +452,16 @@ void QuizGame::editSubject()
 		}
 		else
 		{
-			cout << "The number you selected was not a part of the index. \nPlease enter a number between 0 and " << subjects.size() - 1 << endl;
+			std::cout << "The number you selected was not a part of the index. \nPlease enter a number between 0 and " << subjects.size() - 1 << std::endl;
 		}
 
 		if (editingSubject)
 		{
-			cout << "Which subject would you like to edit? Please select the index: ";
-			cin >> editSubjectIndex;
+			std::cout << "Which subject would you like to edit? Please select the index: ";
+			std::cin >> editSubjectIndex;
 		}
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
 
 
@@ -553,7 +549,7 @@ void QuizGame::editSubjectMenu(int index)
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::addQuestion(int index)
 {
-	cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
+	std::cout << "----------" << subjects[index].getSubjectName() << "----------" << std::endl;
 	subjects[index].sAddQuestion();
 }
 
@@ -564,7 +560,7 @@ void QuizGame::addQuestion(int index)
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::removeQuestion(int index)
 {
-	cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
+	std::cout << "----------" << subjects[index].getSubjectName() << "----------" << std::endl;
 	subjects[index].sRemoveQuestion();
 }
 
@@ -575,7 +571,7 @@ void QuizGame::removeQuestion(int index)
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::printQuestion(int index)
 {
-	cout << "----------" << subjects[index].getSubjectName() << "----------" << endl;
+	std::cout << "----------" << subjects[index].getSubjectName() << "----------" << std::endl;
 	subjects[index].sPrintQuestions();
 }
 

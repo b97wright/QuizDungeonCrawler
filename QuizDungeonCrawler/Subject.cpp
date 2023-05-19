@@ -11,43 +11,59 @@ Subject::Subject(string sn)
 	Name = sn;
 }
 
-// ---------- getSubjectName ----------
-/* -------------------------------
-This function returns the name of the 
-current classs
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: getSubjectName
+	Description: This function is responsible for returning the name of the current subject that is being used at the moment.
+---------------------------------------------------------------------------------------------------------------------------*/
 string Subject::getSubjectName() const
 {
 	return Name;
 }
 
-// ---------- getQuestionSize ----------
-/* -------------------------------
-This function returns the size of 
-Q_Guess vector
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: getQuestionSize
+	Description: This function is responsible for returning the the size of the Question Vector for the current subject that is
+	being used.
+---------------------------------------------------------------------------------------------------------------------------*/
 int Subject::getQuestionSize()
 {
 	return Q_Guess.size();
 }
 
-// ---------- sAddQuestion ----------
-/* -------------------------------
-This function is responsible for adding
-question and answers that the user 
-wants to add
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: sAddQuestion
+	Description: This function is responsible for adding questions and answers to the Questions Vector and Answers vector.
+---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::sAddQuestion()
 {
-	int questionCount = 1;
+	// Variables
+	// int
+	int questionCount = -1;
+	// string
 	string inputQuestions;
 	string inputAnswers;
 
+	// Prompt the user to add a question
 	cout << "Add questions/answers for current subject. Or input -1 to quit." << endl;
 
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin.ignore(); // Clear out the new line character from the peverious inputs, if any
+	std::getline(std::cin, inputQuestions);
+	//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	// Input Validation
 	while (inputQuestions != "-1")
-	{ // TODO fix this, it is taking an empty string for some reason
+	{
+		Q_Guess.push_back(inputQuestions);
+
+		std::cin.ignore(); // Clear out the new line character from the peverious inputs
+		std::getline(std::cin, inputAnswers);
+
+		// Input Validation
+		while (inputAnswers != "-1")
+		{
+
+		}
+
 		cout << questionCount << ") ";
 		getline(cin, inputQuestions);
 		if (inputQuestions != "-1")
@@ -64,12 +80,11 @@ void Subject::sAddQuestion()
 	cout << endl;
 }
 
-// ---------- lAddQuestion ----------
-/* -------------------------------
-This function is responsible for adding
-question, used explictedly by the 
-saveandload class
-   ------------------------------- */
+
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: lAddQuestion
+	Description: This function is responsible for loading questions and answers to the Questions Vector and Answers vector.
+---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::lAddQuestion(vector<string> loadQuestions, vector<string> loadAnswers)
 {
 	for (int i = 0; i < loadQuestions.size(); i++)
@@ -83,12 +98,10 @@ void Subject::lAddQuestion(vector<string> loadQuestions, vector<string> loadAnsw
 	}
 }
 
-// ---------- sEditQuestions ----------
-/* -------------------------------
-This function is responsible for removing
-the questions and answers that are found
-Q_Guess, and A_Guess vectors.
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: sRemoveQuestion
+	Description: This function is responsible forremoving questions and answers to the Questions Vector and Answers vector.
+---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::sRemoveQuestion()
 {
 	cout << "---------- Remove Question ----------" << endl;
@@ -126,12 +139,10 @@ void Subject::sRemoveQuestion()
 	cout << endl;
 }
 
-// ---------- sPrintQuestions ----------
-/* -------------------------------
-This function is responsible for editing
-the questions and answers that are found
-Q_Guess, and A_Guess vectors.
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: sPrintQuestions
+	Description: This function is responsible for printing questions and answers from the Questions Vector and Answers vector.
+---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::sPrintQuestions()
 {
 	cout << "---------- List of Questions ----------" << endl;
@@ -143,12 +154,10 @@ void Subject::sPrintQuestions()
 	cout << endl;
 }
 
-// ---------- sEditQuestions ----------
-/* -------------------------------
-This function is responsible for editing
-the questions and answers that are found
-Q_Guess, and A_Guess vectors.
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: sEditQuestions
+	Description: This function is responsible for editing questions and answers from the Questions Vector and Answers vector.
+---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::sEditQuestions()
 {
 	cout << "---------- Edit Question ----------" << endl;
@@ -198,13 +207,10 @@ void Subject::sEditQuestions()
 	cout << endl;
 }
 
-// ---------- generateQuestions ----------
-/* -------------------------------
-This function is responsible for generating 
-questions and answers from the Q_Guess vector
-so that the guess Questions are random. Takes in 
-an index so it knows what question to use. 
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: generateQuestions
+	Description: This function is responsible: TBD.
+---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::generateQuestions(int index)
 {
 	// Get the question from the index
@@ -215,42 +221,38 @@ void Subject::generateQuestions(int index)
 	// The replaced word will be stored in answer so the user can guess the word. 
 }
 
-// ---------- removePunctuation ----------
-/* -------------------------------
-This function is under construction and will
-be determined at a later date.
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: generateQuestions
+	Description: This function is responsible: TBD.
+---------------------------------------------------------------------------------------------------------------------------*/
 string Subject::removePunctuation()
 {
 	return string();
 }
 
-// ---------- isSubjectQuestionEmpty ----------
-/* -------------------------------
-This function return the a boolean 
-to check to see if Q_Guess vector is empty
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: isSubjectQuestionEmpty
+	Description: This function is responsible returning if Question Vector is empty
+---------------------------------------------------------------------------------------------------------------------------*/
 bool Subject::isSubjectQuestionEmpty()
 {
 	return Q_Guess.empty();
 }
 
 
-// ---------- returnQuestion ----------
-/* -------------------------------
-This function return the string found
-in the Q_Guess vector at the index.
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: returnQuestion
+	Description: This function is responsible returning the question at the index found in the Question Vector
+---------------------------------------------------------------------------------------------------------------------------*/
 string Subject::returnQuestion(int index)
 {
 	return Q_Guess[index];
 }
 
-// ---------- returnAnswer ----------
-/* -------------------------------
-This function return the string found 
-in the A_Guess vector at the index.
-   ------------------------------- */
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: returnQuestion
+	Description: This function is responsible returning the answer at the index found in the Answer Vector
+---------------------------------------------------------------------------------------------------------------------------*/
 string Subject::returnAnswer(int index)
 {
 	return A_Guess[index];

@@ -6,10 +6,7 @@
 #include "Subject.h"
 #include "SaveandLoad.h"
 
-//using namespace std::cout;
-//using namespace 
-//using namespace std::cin;
-using namespace std;
+using std::vector;
 
 class QuizGame
 {
@@ -38,7 +35,7 @@ public:
 	void printQuestion(int index);
 	void editQuestion(int index);
 
-	// Play Game
+	// Play Game CHANGE THIS
 	string toLowerString(string str)
 	{
 		transform(str.begin(), str.end(), str.begin(), ::tolower);
@@ -46,14 +43,7 @@ public:
 	}
 
 private:
-	bool mainIsPlaying;
-	bool isInGame;
-	bool isEdit;
-	bool isEditSubject;
-	int menuChoice;
-	int editSubjectChoice;
-	int editRemoveIndex;
-	int editSubjectIndex;
+	// Vectors 
 	vector<Subject> subjects;
 	SaveandLoad saveandload;
 };
