@@ -101,74 +101,68 @@ void QuizGame::mainMenu()
 void QuizGame::playGame()
 {
 	// Remember to make this look more neat
-	int index;
+	int index = 0;
 	int randomQuestionNum = -1;
+	int lives = 10;
 	srand(time(nullptr));
-	int lives = 3;
 	string Guess, Answer;
 	bool isPlaying = true, isRandom = false;
 	vector<int> counter;
 
-	printSubject();
-	std::cout << std::endl;
-	std::cout << "Select a Subject that you would like to be tested in. " << std::endl;
-	std::cout << "Either Select -1 for all subjects to be tested at random or one of the index. \nChoice: ";
-	std::cin >> index;
-
-	// This is where the program choose between if the use put random subjects or specific subject
-	if (index == -1)
+	// Check for Subjects
+	if (subjects.empty())
 	{
-		isRandom = true;
+		std::cout << "You have no subjects present!" << std::endl;
+		return;
 	}
-	// TODO add an initial character setup
-	// If there is a character load it, if not make a new one
 
-	// Should we do this before they even play the game. 
-	// If User clicked Random, make sure each subject has questions in them. 
-	if (isRandom)
+	// Check for Questions and Answers
+	for (int i = 0; i < subjects.size(); i++)
 	{
+		if (subjects[i].getQuestionSize() <= 0)
+		{
+			std::cout << subjects[i].getSubjectName() << " subject has no qestions." << std::endl;
+			std::cout << "Please add question and answers to that subject before play the game!" << std::endl;
+			isPlaying = false;
+		}
 	}
 
 
-	// this is just a sample
-	while(lives > 0)
+	// FIX THIS
+	while (isPlaying)
 	{
-		// This is a general sample of how the game will function in reguards to the play game portion
-		// First the User will pic a subject
-		// Enter the dungeon
-		// Traverse the dungeon
-		// Fight monsters/answer questions
-		// Survive in teh dungeon for as long as you can
-		// Every time you kill a monster, you get a killing monster tally.
-
-		// Get Random Question for User to answer
 		randomQuestionNum = rand() % subjects[index].getQuestionSize();
-
-		std::cout << lives << "/ 3 life points" << std::endl;
-		std::cout << "You are battling a monster in the dungeon..." << std::endl;
-		std::cout << "Subject: " << subjects[index].getSubjectName();
+		system("CLS");
+		std::cout << "Lives: " << lives << std::endl << std::endl;
 		std::cout << subjects[index].returnQuestion(randomQuestionNum) << std::endl;
-		std::cin >> Guess;
-		Guess;
+		std::cin.ignore();
+		std::getline(std::cin, Guess);
 
+		// Making the Guess and Answer string lowercase
 		Guess = toLowerString(Guess);
-		Answer = subjects[index].returnAnswer(randomQuestionNum);
 		Answer = toLowerString(Answer);
 
-		if (Guess.compare(Answer) == 0)
+		// Comparing the Guess and Answer
+		if (Guess.compare(Answer))
 		{
-			std::cout << "Correct, the Answer is " << Guess << std::endl;
-			std::cout << "You attack the monster for one life!!!" << std::endl;
+			std::cout << "Correct...The answer was " << Answer << std::endl;
+			std::cout << "You can attack the monster..." << std::endl;
 		}
 		else
 		{
-			std::cout << "Incorrect, the Answer is " << Guess << std::endl;
-			std::cout << "The monster atacked you for one life!!!" << std::endl;
+			std::cout << "Incorrect...The answer was " << Answer << std::endl;
+			std::cout << "You can attack the monster..." << std::endl;
 			lives--;
 		}
-		std::cout << std::endl;
-	}
 
+		// Check if lives is 0 or lower
+		if (lives <= 0)
+		{
+			isPlaying = false;
+		}
+
+	}
+	std::cout << std::endl;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------

@@ -1,9 +1,0 @@
-__________ devices for data entry (mice, keyboards, scanners, cameras, microphones)
-Peripheral
-CPU manipulates data based on __________ from the operating system and applications software
-instructions
-__________ is displayed or played through output devices (monitors, loudspeakers)
-data
-__________ enables data exchange between computers and devices on the same network.
-Networking
-END File

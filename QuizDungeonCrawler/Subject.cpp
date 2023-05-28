@@ -37,48 +37,60 @@ int Subject::getQuestionSize()
 void Subject::sAddQuestion()
 {
 	// Variables
-	// int
-	int questionCount = -1;
-	// string
-	string inputQuestions;
-	string inputAnswers;
+	string inputQuestion;
+	string inputAnswer;
+	bool addingQnA = true;
 
-	// Prompt the user to add a question
-	cout << "Add questions/answers for current subject. Or input -1 to quit." << endl;
+	std::cout << "---------- Add Question ----------" << std::endl;
 
-	std::cin.ignore(); // Clear out the new line character from the peverious inputs, if any
-	std::getline(std::cin, inputQuestions);
-	//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-	// Input Validation
-	while (inputQuestions != "-1")
+	while (addingQnA)
 	{
-		Q_Guess.push_back(inputQuestions);
+		bool addingAnswer = true;  // Reset addingAnswer to true for each new question
 
-		std::cin.ignore(); // Clear out the new line character from the peverious inputs
-		std::getline(std::cin, inputAnswers);
-
-		// Input Validation
-		while (inputAnswers != "-1")
+		std::cout << "Enter a question (or -1 to quit): ";
+		std::getline(cin, inputQuestion);
+		// Quit if the user entered -1
+		if (inputQuestion == "-1")
 		{
-
+			// If no questions have been added yet, prompt the user to add at least one
+			if (Q_Guess.empty()) {
+				std::cout << "Please add at least one question before quitting." << std::endl;
+				continue;
+			}
+			else {
+				addingQnA = false;
+				break;
+			}
 		}
 
-		cout << questionCount << ") ";
-		getline(cin, inputQuestions);
-		if (inputQuestions != "-1")
+		// If the input is not empty and not -1, add it to the questions
+		if (!inputQuestion.empty() && inputQuestion != "-1")
 		{
-			Q_Guess.push_back(inputQuestions);
-			cout << "Answer: ";
-			cin >> inputAnswers;
-			A_Guess.push_back(inputAnswers);
-			cout << endl;
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			Q_Guess.push_back(inputQuestion);
+
+			while (addingAnswer)
+			{
+				std::cout << "Enter an answer: ";
+				std::getline(cin, inputAnswer);
+				// If the user enters -1 or an empty answer, remind them to input a valid answer
+				if (inputAnswer == "-1" || inputAnswer.empty())
+				{
+					std::cout << "Please provide a valid answer for the question before quitting or continuing." << std::endl;
+					std::cout << "Because you entered a question, you must enter an answer for the question." << std::endl;
+				}
+				else
+				{
+					A_Guess.push_back(inputAnswer);
+					addingAnswer = false;
+				}
+			}
 		}
-		questionCount++;
 	}
-	cout << endl;
+
+	std::cout << std::endl;
 }
+
+
 
 
 /*---------------------------------------------------------------------------------------------------------------------------
@@ -104,38 +116,43 @@ void Subject::lAddQuestion(vector<string> loadQuestions, vector<string> loadAnsw
 ---------------------------------------------------------------------------------------------------------------------------*/
 void Subject::sRemoveQuestion()
 {
+	// Variable
+	bool removingQuestion = true;
+
+
 	cout << "---------- Remove Question ----------" << endl;
 	// Checks to see if the Q_Guess vector is empty
-	if (Q_Guess.empty() == true)
+	if (Q_Guess.empty())
 	{
-		cout << "You have no Questions in " << Name << endl;;
+		cout << "You have no Questions in " << Name << endl;
+		return;
 	}
-	else
+
+	sPrintQuestions();
+	cout << "Which question would you like to be removed, please select the index, or -1 to go back: ";
+
+	while (removingQuestion)
 	{
-		sPrintQuestions();
-		cout << "Which subject would you like to be removed, please select the index, or -1 to go back: ";
 		cin >> questionRemoveIndex;
 
 		if (questionRemoveIndex == -1)
 		{
-
+			removingQuestion = false;
+		}
+		else if (questionRemoveIndex >= 0 && questionRemoveIndex < Q_Guess.size())
+		{
+			// If the index is found in the vector, we can now remove those values found in the respective index
+			Q_Guess.erase(Q_Guess.begin() + questionRemoveIndex);
+			A_Guess.erase(A_Guess.begin() + questionRemoveIndex); 
+			removingQuestion = false;
 		}
 		else
 		{
-			// What is happening here is we first get the vector size, and make sure that the index can be found in the vector
-			int currentMax = Q_Guess.size();
-			while (!(questionRemoveIndex >= 0 && questionRemoveIndex <= currentMax))
-			{
-				cout << "The number you selected was not apart of the index. \nPlease enter a number between 0 through " << Q_Guess.size() - 1 << endl;
-				cout << "Which subject would you like to be removed, please select the index: ";
-				cin >> questionRemoveIndex;
-
-			}
-
-			// If the index is found in the vector, we can now remove those valeus found in the resective index
-			Q_Guess.erase(Q_Guess.begin() + questionRemoveIndex);
+			cout << "The number you selected was not part of the index. \nPlease enter a number between 0 through " << Q_Guess.size() - 1 << endl;
+			cout << "Which question would you like to be removed, please select the index: ";
 		}
 	}
+
 	cout << endl;
 }
 
@@ -162,50 +179,50 @@ void Subject::sEditQuestions()
 {
 	cout << "---------- Edit Question ----------" << endl;
 	// Checks to see if the Q_Guess vector is empty
-	if (Q_Guess.empty() == true)
+	if (Q_Guess.empty())
 	{
-		cout << "You have no Questions in " << Name << endl;;
+		cout << "You have no Questions in " << Name << endl;
+		return;
 	}
-	else
+
+	sPrintQuestions();
+	cout << "Which question would you like to edit, please select the index, or -1 to go back: ";
+
+	bool editingQuestion = true;
+	while (editingQuestion)
 	{
-		sPrintQuestions();
-		cout << "Which subject would you like to edit, please select the index, or -1 to go back: ";
 		cin >> questionEditIndex;
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear out the new line character from the previous inputs
 
 		if (questionEditIndex == -1)
 		{
-
+			editingQuestion = false;
 		}
-		else
+		else if (questionEditIndex >= 0 && questionEditIndex < Q_Guess.size())
 		{
-			// What is happening here is we first get the vector size, and make sure that the index can be found in the vector
-			int currentMax = Q_Guess.size();
-			while (!(questionEditIndex >= 0 && questionEditIndex <= currentMax))
-			{
-				cout << "The number you selected was not apart of the index. \nPlease enter a number between 0 through " << Q_Guess.size() - 1 << endl;
-				cout << "Which subject would you like to be removed, please select the index: ";
-				cin >> questionEditIndex;
-
-			}
-
 			string question;
 			string answer;
 
-			// If the index is found in the vector, we can now edit those valeus found in the resective index
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			cout << "Please Enter a new Question: " << endl;
 			getline(cin, question);
 			cout << "Please enter a new Answer for the question: " << endl;
-			cin >> answer;
+			getline(cin, answer);
 
+			// If the index is valid, we can now edit those values found in the respective index
 			Q_Guess[questionEditIndex] = question;
-			A_Guess[questionEditIndex] = answer;
-
-
+			A_Guess[questionEditIndex] = answer; 
+			editingQuestion = false;
+		}
+		else
+		{
+			cout << "The number you selected was not part of the index. \nPlease enter a number between 0 through " << Q_Guess.size() - 1 << endl;
+			cout << "Which question would you like to be removed, please select the index: ";
 		}
 	}
+
 	cout << endl;
 }
+
 
 /*---------------------------------------------------------------------------------------------------------------------------
 	Function: generateQuestions

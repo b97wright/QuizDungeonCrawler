@@ -1,0 +1,21 @@
+An __________ system processes, stores, and transfers information.
+IT
+Information can take many different forms including __________.
+words
+Information stored and processed using binary digits is often referred to as __________.
+data
+An IT system can use __________, the telecommunications network, and other programmable electronic devices.
+computers
+The term __________ is often used in preference to IT due to the importance of communications in IT.
+ICT
+The effective use of information is regarded as the defining element of the __________ century.
+21st
+Computers and software programs enable us to process data and perform certain tasks much more __________ than we could ourselves.
+quickly
+IT systems are very __________ and can be made to perform a variety of different tasks.
+flexible
+IT networks, such as the global __________, allow us to distribute and share information quickly.
+Internet
+We live in an __________.
+Information Age
+END File
