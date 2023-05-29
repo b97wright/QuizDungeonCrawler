@@ -128,12 +128,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enity.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="QuizDungeonCrawler.cpp" />
     <ClCompile Include="QuizGame.cpp" />
     <ClCompile Include="SaveandLoad.cpp" />
     <ClCompile Include="Subject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enity.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="QuizGame.h" />
     <ClInclude Include="SaveandLoad.h" />
     <ClInclude Include="Subject.h" />

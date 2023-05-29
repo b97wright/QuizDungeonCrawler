@@ -140,10 +140,11 @@ void QuizGame::playGame()
 
 		// Making the Guess and Answer string lowercase
 		Guess = toLowerString(Guess);
+		Answer = subjects[index].returnAnswer(randomQuestionNum);
 		Answer = toLowerString(Answer);
 
 		// Comparing the Guess and Answer
-		if (Guess.compare(Answer))
+		if (Guess.compare(Answer) == 1)
 		{
 			std::cout << "Correct...The answer was " << Answer << std::endl;
 			std::cout << "You can attack the monster..." << std::endl;
