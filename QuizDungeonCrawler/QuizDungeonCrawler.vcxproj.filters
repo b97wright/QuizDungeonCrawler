@@ -27,10 +27,7 @@
     <ClCompile Include="SaveandLoad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +41,7 @@
     <ClInclude Include="SaveandLoad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

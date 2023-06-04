@@ -1,0 +1,61 @@
+A personal computer is a ___________________ designed for individual use or personal use.
+device or computer
+The Apple II is an example of an early computer that featured a ___________________ screen. 
+Black and green
+Modern PCs are characterized by the use of ___________________ monitors or displays. 
+Color
+Apple has played a significant role in the development of ___________________ computers. 
+All-in-one
+Current all-in-one computers feature high-quality displays, such as ___________________.
+20 or 27-inch
+Smartphones are considered personal computers based on their ___________________.
+Functions and capabilities
+Input, processing, storage, and output are the four basic functions of a ___________________.
+Computer
+Electric cars can be classified as computers due to their reliance on ___________________.
+Computer-controlled operations
+Workstation computers are designed for ___________________.
+High-performance and specialized tasks
+Servers are rack-mounted computers used for ___________________.
+Hosting services or serving data to clients
+Laptops offer ___________________ compared to traditional workstations. 
+Mobility and portability
+Tablets are portable computers that feature a ___________________.
+Touchscreen
+Smartphones share similarities with tablets, such as ___________________.
+Touch-based interaction and mobile computing
+Smart devices, such as Google Home and Alexa, provide ___________________.
+Voice-based input and various functionalities
+IoT devices are characterized as ___________________ and examples include ___________________. 
+Connected devices, Internet-connected home appliances, wearables, etc
+Input devices include keyboards, mice, ___________________.
+Microphones and other input peripherals
+Processing devices include CPUs and ___________________.
+GPUs (Graphics Processing Units)
+Storage devices include hard disk drives, ___________________.
+Solid State Drives (SSDs) and other storage mediums
+Output devices include monitors, ___________________.
+Speakers, printers, and other output peripherals
+Operating system software examples include ___________________.
+Windows, macOS, Linux, etc
+Application software examples include ___________________.
+Microsoft Word, Adobe Premiere, etc
+Drivers are used to translate commands from the operating system to ___________________.
+Specific hardware components
+Firmware is a combination of ___________________.
+Hardware and software
+END File
+
+
+
+
+
+
+
+
+
+
+
+
+
+

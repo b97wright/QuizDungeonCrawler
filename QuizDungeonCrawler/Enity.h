@@ -2,15 +2,15 @@
 class Enity
 {
 public:
-	Enity();
+	Enity() : Health(0), Defense(0), attackPoints(0) {}
 
-	int Attack();
-	int Defend();
-	bool Dodge();
+	virtual int Attack() { return attackPoints;  }
+	virtual int Defend() { return Defense;  }
+	virtual bool Dodge() { return false; }
 
 private:
 	int Health;
 	int Defense;
-	int Attack;
+	int attackPoints;
 };
 
