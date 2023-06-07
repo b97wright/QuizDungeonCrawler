@@ -1,16 +1,61 @@
 #pragma once
+#include <string>
+
+using std::string;
+
 class Entity
 {
 public:
-	Entity() : Health(0), Defense(0), attackPoints(0) {}
+	Entity() : Name(), Vit(0), vitPerLevel(20), baseVit(100), Def(0), defPerLevel(0), baseDef(0), randomDefNum(0), Atk(0), atkPerLevel(10), baseAtk(0), randomAtkNum(0), level(0) {}
 
-	virtual int Attack() { return attackPoints; }
-	virtual int Defend() { return Defense; }
+	// Standard Functions for Attack Defense and Dodge
+	virtual int Attack() { return Atk; }
+	virtual int Defend() { return Def; }
 	virtual bool Dodge() { return false; }
 
+	// Vitality
+	virtual int getVit() { return Vit; }
+	virtual void setVit(int newVit) { Vit = newVit; }
+	virtual void calMaxVit() {}
+	virtual void takeAtkOnVit(int atkVal, int defVal) { Vit = Vit - atkVal; }
+
+	// Defense
+	virtual int getDef() { return Def; }
+	virtual void setDef(int newDef) { Def = newDef; }
+	virtual int calDef() { return Def; }
+
+	// Atk
+	virtual int getAtk() { return Atk; }
+	virtual void setAtk(int newAtk) { Atk = newAtk; }
+	virtual int calAtk() { return Atk; }
+	virtual bool isCrit() { return false; }
+	virtual int calCrit(int AtkandCrit) { return AtkandCrit; }
+
+
+
+
 protected:
-	int Health;
-	int Defense;
-	int attackPoints;
+	// Name
+	string Name;
+
+	// Vitality
+	int Vit;
+	int vitPerLevel;
+	int baseVit;
+
+	// Defense
+	int Def;
+	int defPerLevel;
+	int baseDef;
+	int randomDefNum;
+
+	// Attack
+	int Atk;
+	int atkPerLevel;
+	int baseAtk;
+	int randomAtkNum;
+
+	// Level
+	int level;
 };
 
