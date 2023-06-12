@@ -106,6 +106,7 @@ void QuizGame::playGame()
 	int lives = 10;
 	srand(time(nullptr));
 	string Guess, Answer;
+	string name, strContinue;
 	bool isPlaying = true, isRandom = false;
 	vector<int> counter;
 
@@ -127,13 +128,18 @@ void QuizGame::playGame()
 		}
 	}
 
+	std::cout << "Please Enter a User Name: ";
+	name = "Desk";
+	
+	Player player1(name);
 
+	system("CLS");
 	// FIX THIS
 	while (isPlaying)
 	{
-		randomQuestionNum = rand() % subjects[index].getQuestionSize();
-		system("CLS");
-		std::cout << "Lives: " << lives << std::endl << std::endl;
+		randomQuestionNum = rand() % subjects[index].getQuestionSize() - 1;
+		std::cout << "-Name";
+		std::cout << "Health: " << player1.getVit() << std::endl << std::endl;
 		std::cout << subjects[index].returnQuestion(randomQuestionNum) << std::endl;
 		std::cin.ignore();
 		std::getline(std::cin, Guess);
@@ -144,16 +150,18 @@ void QuizGame::playGame()
 		Answer = toLowerString(Answer);
 
 		// Comparing the Guess and Answer
-		if (Guess.compare(Answer) == 1)
+		if (Guess.compare(Answer) == 0)
 		{
 			std::cout << "Correct...The answer was " << Answer << std::endl;
 			std::cout << "You can attack the monster..." << std::endl;
+			std::cout << "Please Press Enter to Continue " << std::endl;
 		}
 		else
 		{
 			std::cout << "Incorrect...The answer was " << Answer << std::endl;
-			std::cout << "You can attack the monster..." << std::endl;
-			lives--;
+			std::cout << "You get attacked the monster..." << std::endl;
+			player1.takeAtkOnVit(player1.calAtk(), player1.calDef());
+			std::cout << "Please Press Enter to Continue " << std::endl;
 		}
 
 		// Check if lives is 0 or lower
@@ -163,7 +171,7 @@ void QuizGame::playGame()
 		}
 
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << std::endl;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------

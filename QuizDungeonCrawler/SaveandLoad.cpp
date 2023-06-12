@@ -48,75 +48,71 @@ void SaveandLoad::saveGame(vector<Subject> subSave)
 
 vector<Subject> SaveandLoad::loadGame(vector<Subject> subLoad)
 {
-	// Load Subjects
-	const string directory = "F:\\Documents\\Visual Studio Community Code\\QuizDungeonCrawler\\QuizDungeonCrawler\\SaveData\\";
-	bool wasSubEmpty = true;
-	int subLoadIndex = -1;
-	vector<string> questions;
-	vector<string> answers;
-	bool isQuestion = true;
+    const string directory = "F:\\Documents\\Visual Studio Community Code\\QuizDungeonCrawler\\QuizDungeonCrawler\\SaveData\\";
+    bool wasSubEmpty = true;
+    vector<string> questions;
+    vector<string> answers;
+    bool isQuestion = true;
 
-	for (const auto& file : std::filesystem::directory_iterator(directory))
-	{
-		wasSubEmpty = false;
-		if (file.is_regular_file())
-		{
-			string fileName = file.path().filename().string();
-			size_t dotPosition = fileName.find_last_of('.');
-			fileName = fileName.substr(0, dotPosition);
-			cout << "FileName: " << fileName << endl;
+    for (const auto& file : std::filesystem::directory_iterator(directory))
+    {
+        wasSubEmpty = false;
+        if (file.is_regular_file())
+        {
+            string fileName = file.path().filename().string();
+            size_t dotPosition = fileName.find_last_of('.');
+            fileName = fileName.substr(0, dotPosition);
+            cout << "FileName: " << fileName << endl;
 
-			subLoad.push_back(fileName);
+            subLoad.push_back(fileName);
 
-			// find where subject index is and use that index to add to the subject questions
+            // Get a reference to the last added Subject
+            Subject& currentSubject = subLoad.back();
 
-			for (int i = 0; i < subLoad.size(); i++)
-			{
-				if (subLoad[i].getSubjectName() == fileName)
-				{
-					subLoadIndex = i;
-				}
-			}
+            ifstream ifs(file.path().string());
 
+            if (ifs.is_open())
+            {
+                string line;
+                // Clear questions and answers vectors for each file
+                questions.clear();
+                answers.clear();
+                while (getline(ifs, line))
+                {
+                    if (line != "END File")
+                    {
+                        if (isQuestion)
+                        {
+                            questions.push_back(line);
+                            isQuestion = false;
+                        }
+                        else
+                        {
+                            answers.push_back(line);
+                            isQuestion = true;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
 
-			ifstream ifs(file.path().string());
+                }
+                currentSubject.lAddQuestion(questions, answers);
+                ifs.close();
+            }
+            else
+            {
+                cout << "Error unable to open file " << file.path().string() << endl;
+            }
+        }
+    }
 
+    if (wasSubEmpty == true)
+    {
+        cout << "It seem that you have no save files to load from!" << endl;
+    }
 
-			if (ifs.is_open())
-			{
-				string line;
-				while (getline(ifs, line))
-				{
-					if (line != "END File")
-					{
-						if (isQuestion)
-						{
-							questions.push_back(line);
-							isQuestion = false;
-						}
-						else
-						{
-							answers.push_back(line);
-							isQuestion = true;
-						}
-					}
-					
-				}
-				subLoad[subLoadIndex].lAddQuestion(questions, answers);
-				ifs.close();
-			}
-			else
-			{
-				cout << "Error unable to open file " << file.path().string() << endl;
-			}
-		}
-	}
-
-	if (wasSubEmpty == true)
-	{
-		cout << "It seem that you have no save files to load from!" << endl;
-	}
-
-	return subLoad;
-	// Load Player Character 
+    return subLoad;
 }
+

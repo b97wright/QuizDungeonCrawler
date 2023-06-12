@@ -5,6 +5,7 @@
 #include <ctime>
 #include "Subject.h"
 #include "SaveandLoad.h"
+#include "Player.h"
 
 using std::vector;
 

@@ -4,6 +4,7 @@ Player::Player(string playerName) : Entity()
 {
 	Name = playerName;
 	level = 1;
+	calMaxVit();
 }
 
 int Player::Attack()
@@ -23,7 +24,7 @@ bool Player::Dodge()
 
 int Player::getVit()
 {
-	return 0;
+	return Vit;
 }
 
 void Player::setVit(int newVit)
@@ -39,4 +40,67 @@ void Player::calMaxVit()
 void Player::takeAtkOnVit(int atkVal, int defVal)
 {
 	Vit = (Vit + defVal) - atkVal;
+}
+
+int Player::getDef()
+{
+	return Def;
+}
+
+void Player::setDef(int newDef)
+{
+	Def = newDef;
+}
+
+int Player::calDef()
+{
+	srand(time(nullptr));
+	defPerLevel = 10;
+	randomDefNum = rand() % 3;
+	baseDef = level * randomDefNum;
+	Def = baseDef + (level - 1) * defPerLevel;
+	return Def;
+}
+
+int Player::getAtk()
+{
+	return Atk;
+}
+
+void Player::setAtk(int newAtk)
+{
+	Atk = newAtk;
+}
+
+int Player::calAtk()
+{
+	srand(time(nullptr));
+	atkPerLevel = 10;
+	randomAtkNum = rand() % 5 + 1;
+	baseAtk = level * randomAtkNum;
+	Atk = baseAtk + (level - 1) * atkPerLevel;
+	return Atk;
+}
+
+bool Player::isCrit()
+{
+	srand(time(nullptr));
+	// Variables
+	double chance;
+	chance = rand() % 1;
+
+	if (chance <= 0.05)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int Player::calCrit(int AtkandCrit)
+{
+	Atk = AtkandCrit + (AtkandCrit * 0.01);
+	return Atk;
 }

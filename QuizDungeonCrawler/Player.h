@@ -17,4 +17,16 @@ public:
     void calMaxVit() override;
     void takeAtkOnVit(int atkVal, int defVal) override;
 
+    // Defense
+    int getDef() override;
+    void setDef(int newDef) override;
+    int calDef() override;
+
+    // Attack
+    int getAtk() override;
+    void setAtk(int newAtk) override;
+    int calAtk() override;
+    bool isCrit() override;
+    int calCrit(int AtkandCrit) override;
+
 };
