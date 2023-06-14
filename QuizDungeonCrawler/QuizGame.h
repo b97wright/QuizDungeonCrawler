@@ -37,6 +37,13 @@ public:
 	void editQuestion(int index);
 
 	// Play Game CHANGE THIS
+	bool areSubjectsEmpty();
+	bool areQuestionsPresent();
+	bool compareGuessandAnswer(string userGuess, string answer);
+	string getUsername();
+	string getUserGuess();
+	int getRandomIndexSubject();
+	int getRandomIndexQuestion(int currentIndex);
 	string toLowerString(string str)
 	{
 		transform(str.begin(), str.end(), str.begin(), ::tolower);

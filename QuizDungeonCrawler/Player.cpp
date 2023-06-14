@@ -22,6 +22,13 @@ bool Player::Dodge()
 	return false;
 }
 
+void Player::DisplayInfo()
+{
+	std::cout << "Name: " << Name << std::endl;
+	std::cout << "Health: " << getVit();
+	std::cout << std::endl;
+}
+
 int Player::getVit()
 {
 	return Vit;

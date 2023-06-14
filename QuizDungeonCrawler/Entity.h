@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 #include <string>
 
 using std::string;
@@ -14,6 +15,7 @@ public:
 	virtual int Attack() { return Atk; }
 	virtual int Defend() { return Def; }
 	virtual bool Dodge() { return false; }
+	virtual void DisplayInfo() {}
 
 	// Vitality
 	virtual int getVit() { return Vit; }

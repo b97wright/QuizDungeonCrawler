@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+
 class Player :
     public Entity
 {
@@ -10,6 +11,7 @@ public:
     int Attack() override;
     int Defend() override;
     bool Dodge() override;
+    void DisplayInfo() override;
 
     // Vitality
     int getVit() override;

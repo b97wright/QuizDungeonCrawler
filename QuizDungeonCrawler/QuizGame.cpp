@@ -100,78 +100,73 @@ void QuizGame::mainMenu()
 ---------------------------------------------------------------------------------------------------------------------------*/
 void QuizGame::playGame()
 {
-	// Remember to make this look more neat
-	int index = 0;
-	int randomQuestionNum = -1;
-	int lives = 10;
+	// Variables
+	int currentIndex = 0;
+	string userName, userGuess, correctAnswer;
+	bool isGameRunning = true;
+	// In the future do this in the subjects to keep track easier
+	vector<int> questionTracker;
 	srand(time(nullptr));
-	string Guess, Answer;
-	string name, strContinue;
-	bool isPlaying = true, isRandom = false;
-	vector<int> counter;
 
-	// Check for Subjects
-	if (subjects.empty())
+	// Check to see if Subjects is Empty
+	if (areSubjectsEmpty())
 	{
 		std::cout << "You have no subjects present!" << std::endl;
+		std::cout << "Please add Subjects before procceding!" << std::endl;
 		return;
 	}
 
-	// Check for Questions and Answers
-	for (int i = 0; i < subjects.size(); i++)
+
+	// Check for Questions and Answers in each Subject
+	if (areQuestionsPresent())
 	{
-		if (subjects[i].getQuestionSize() <= 0)
-		{
-			std::cout << subjects[i].getSubjectName() << " subject has no qestions." << std::endl;
-			std::cout << "Please add question and answers to that subject before play the game!" << std::endl;
-			isPlaying = false;
-		}
+		std::cout << "You have one or more subjects with Empty Questions!" << std::endl;
+		std::cout << "Please questions to those subjects before procceding!" << std::endl;
+		return;
 	}
-
-	std::cout << "Please Enter a User Name: ";
-	name = "Desk";
 	
-	Player player1(name);
+	// Initialize the Player Character with a unique UserName
+	Player player1(getUsername());
 
-	system("CLS");
-	// FIX THIS
-	while (isPlaying)
+	while (isGameRunning)
 	{
-		randomQuestionNum = rand() % subjects[index].getQuestionSize() - 1;
-		std::cout << "-Name";
-		std::cout << "Health: " << player1.getVit() << std::endl << std::endl;
-		std::cout << subjects[index].returnQuestion(randomQuestionNum) << std::endl;
-		std::cin.ignore();
-		std::getline(std::cin, Guess);
+		// Variables
+		// In the future get a functions for return a random Index for subject Index, and for Questions
+		int randomQuestionNum = getRandomIndexQuestion(currentIndex);
 
-		// Making the Guess and Answer string lowercase
-		Guess = toLowerString(Guess);
-		Answer = subjects[index].returnAnswer(randomQuestionNum);
-		Answer = toLowerString(Answer);
+		system("CLS");
+		player1.DisplayInfo();
+		// Display Monster
 
-		// Comparing the Guess and Answer
-		if (Guess.compare(Answer) == 0)
+		std::cout << subjects[currentIndex].returnQuestion(randomQuestionNum) << std::endl;
+		correctAnswer = subjects[currentIndex].returnAnswer(randomQuestionNum);
+		userGuess = getUserGuess();
+
+		correctAnswer = toLowerString(correctAnswer);
+		userGuess = toLowerString(userGuess);
+
+		if (compareGuessandAnswer(userGuess, correctAnswer))
 		{
-			std::cout << "Correct...The answer was " << Answer << std::endl;
+			std::cout << "Correct...The answer was " << correctAnswer << std::endl;
 			std::cout << "You can attack the monster..." << std::endl;
-			std::cout << "Please Press Enter to Continue " << std::endl;
+			std::cout << std::endl;
 		}
 		else
 		{
-			std::cout << "Incorrect...The answer was " << Answer << std::endl;
+			std::cout << "Incorrect...The answer was " << correctAnswer << std::endl;
 			std::cout << "You get attacked the monster..." << std::endl;
 			player1.takeAtkOnVit(player1.calAtk(), player1.calDef());
-			std::cout << "Please Press Enter to Continue " << std::endl;
+			std::cout << std::endl;
 		}
 
-		// Check if lives is 0 or lower
-		if (lives <= 0)
+		if (player1.getVit() <= 0)
 		{
-			isPlaying = false;
+			isGameRunning = false;
 		}
 
 	}
-	std::cout << std::endl << std::endl;
+
+	std::cout << std::endl;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------
@@ -585,6 +580,72 @@ void QuizGame::printQuestion(int index)
 void QuizGame::editQuestion(int index)
 {
 
+}
+
+bool QuizGame::areSubjectsEmpty()
+{
+	if (subjects.empty())
+	{
+		return true;
+	}
+	return false;
+}
+
+bool QuizGame::areQuestionsPresent()
+{
+	// Variables
+	bool isQuestionsEmpty = false;
+
+	for (int i = 0; i < subjects.size(); i++)
+	{
+		if (subjects[i].getQuestionSize() <= 0)
+		{
+			std::cout << subjects[i].getSubjectName() << " subject has no qestions." << std::endl;
+			std::cout << "Please add question and answers to that subject before play the game!" << std::endl;
+			isQuestionsEmpty = true;
+		}
+	}
+	return isQuestionsEmpty;
+}
+
+bool QuizGame::compareGuessandAnswer(string userGuess, string answer)
+{
+	if (userGuess.compare(answer) == 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+string QuizGame::getUsername()
+{
+	// Variables
+	string userName;
+
+	std::cout << "Please Enter a User Name: ";
+	std::getline(std::cin, userName);
+	std::cout << std::endl;
+
+	return userName;
+}
+
+string QuizGame::getUserGuess()
+{
+	// Variables
+	string userGuess;
+
+	std::getline(std::cin, userGuess);
+	return userGuess;
+}
+
+int QuizGame::getRandomIndexQuestion(int currentIndex)
+{
+	//Variables
+	srand(time(nullptr));
+	int randomQuestionNum = rand() % subjects[currentIndex].getQuestionSize();
+	
+
+	return randomQuestionNum;
 }
 
 
