@@ -617,16 +617,24 @@ bool QuizGame::compareGuessandAnswer(string userGuess, string answer)
 	return false;
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------
+	Function: getUsername
+	Description: This function is responsible for getting the name the user wants to be called by when playing the game.
+---------------------------------------------------------------------------------------------------------------------------*/
 string QuizGame::getUsername()
 {
 	// Variables
 	string userName;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
 
 	std::cout << "Please Enter a User Name: ";
 	std::getline(std::cin, userName);
 	std::cout << std::endl;
 
 	return userName;
+	// NOTE To Self: The issue I think it was having was the input buffer was not cleared out so I had to clear out the input buffer 
+	// in order to proceed with the code. It was skipping lines 630 - 632 because of this. Having like 628 is clearing the buffer
+	// so that the user can add a usernanme as normal. 
 }
 
 string QuizGame::getUserGuess()
