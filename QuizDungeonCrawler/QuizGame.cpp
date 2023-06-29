@@ -634,7 +634,7 @@ string QuizGame::getUsername()
 	return userName;
 	// NOTE To Self: The issue I think it was having was the input buffer was not cleared out so I had to clear out the input buffer 
 	// in order to proceed with the code. It was skipping lines 630 - 632 because of this. Having like 628 is clearing the buffer
-	// so that the user can add a usernanme as normal. 
+	// so that the user can add a userName as normal. 
 }
 
 string QuizGame::getUserGuess()
