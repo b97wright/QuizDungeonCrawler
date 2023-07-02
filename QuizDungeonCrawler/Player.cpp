@@ -84,7 +84,7 @@ int Player::calAtk()
 	srand(time(nullptr));
 	atkPerLevel = 10;
 	randomAtkNum = rand() % 5 + 1;
-	baseAtk = level * randomAtkNum;
+	baseAtk = (level * randomAtkNum) + 1;
 	Atk = baseAtk + (level - 1) * atkPerLevel;
 	return Atk;
 }
