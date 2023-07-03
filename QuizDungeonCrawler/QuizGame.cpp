@@ -124,6 +124,9 @@ void QuizGame::playGame()
 		std::cout << "Please questions to those subjects before procceding!" << std::endl;
 		return;
 	}
+
+	// Make a Function for Player to get what subject(s) they want to pratice in.
+	// Also when doing this make sure you add the subject title to the question so the user knows what subject it is
 	
 	// Initialize the Player Character with a unique UserName
 	Player player1(getUsername());
@@ -138,6 +141,7 @@ void QuizGame::playGame()
 		player1.DisplayInfo();
 		// Display Monster
 
+		std::cout << "Current Subject Name: " << subjects[currentIndex].getSubjectName() << std::endl;
 		std::cout << subjects[currentIndex].returnQuestion(randomQuestionNum) << std::endl;
 		correctAnswer = subjects[currentIndex].returnAnswer(randomQuestionNum);
 		userGuess = getUserGuess();
