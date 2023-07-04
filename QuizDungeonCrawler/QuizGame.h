@@ -42,6 +42,7 @@ public:
 	bool compareGuessandAnswer(string userGuess, string answer);
 	string getUsername();
 	string getUserGuess();
+	int selectSubject();
 	int getRandomIndexSubject();
 	int getRandomIndexQuestion(int currentIndex);
 	string toLowerString(string str)

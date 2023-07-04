@@ -650,6 +650,18 @@ string QuizGame::getUserGuess()
 	return userGuess;
 }
 
+int QuizGame::selectSubject()
+{
+	// Variables
+	int choice;
+
+	printSubject();
+	std::cout << "Please select an index that you would like to be tested on!" << std::endl;
+	std::cout << "Select -1 for all subjects at random." << std::endl;
+	std::cout << "Choice: ";
+	return 0;
+}
+
 int QuizGame::getRandomIndexQuestion(int currentIndex)
 {
 	//Variables
