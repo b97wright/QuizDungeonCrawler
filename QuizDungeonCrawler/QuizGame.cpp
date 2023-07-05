@@ -104,6 +104,7 @@ void QuizGame::playGame()
 	int currentIndex = 0;
 	string userName, userGuess, correctAnswer;
 	bool isGameRunning = true;
+	bool multipleSubjects = false;
 	// In the future do this in the subjects to keep track easier
 	vector<int> questionTracker;
 	srand(time(nullptr));
@@ -125,14 +126,25 @@ void QuizGame::playGame()
 		return;
 	}
 
-	// Make a Function for Player to get what subject(s) they want to pratice in.
-	// Also when doing this make sure you add the subject title to the question so the user knows what subject it is
+	// User selects 
+	currentIndex = selectSubject();
+	
+	if (currentIndex == -1)
+	{
+		multipleSubjects = true;
+	}
 	
 	// Initialize the Player Character with a unique UserName
 	Player player1(getUsername());
 
 	while (isGameRunning)
 	{
+		// If the user picks multiple subjects, it will start randomizing at the begining of the game
+		if (multipleSubjects == true)
+		{
+			currentIndex = rand() % subjects.size();
+		}
+
 		// Variables
 		// In the future get a functions for return a random Index for subject Index, and for Questions
 		int randomQuestionNum = getRandomIndexQuestion(currentIndex);
@@ -659,7 +671,8 @@ int QuizGame::selectSubject()
 	std::cout << "Please select an index that you would like to be tested on!" << std::endl;
 	std::cout << "Select -1 for all subjects at random." << std::endl;
 	std::cout << "Choice: ";
-	return 0;
+	std::cin >> choice;
+	return choice;
 }
 
 int QuizGame::getRandomIndexQuestion(int currentIndex)
