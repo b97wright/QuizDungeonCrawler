@@ -4,6 +4,7 @@ Player::Player(string playerName) : Entity()
 {
 	Name = playerName;
 	level = 1;
+	experience = 0;
 	calMaxVit();
 }
 
@@ -110,4 +111,9 @@ int Player::calCrit(int AtkandCrit)
 {
 	Atk = AtkandCrit + (AtkandCrit * 0.01);
 	return Atk;
+}
+
+int Player::increaseLevel()
+{
+	return level + 1;
 }

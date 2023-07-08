@@ -31,4 +31,10 @@ public:
     bool isCrit() override;
     int calCrit(int AtkandCrit) override;
 
+    // Level
+    int increaseLevel();
+
+private:
+    int experience;
+
 };
